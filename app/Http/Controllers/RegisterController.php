@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posyandu;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -30,6 +31,19 @@ class RegisterController extends Controller
 
         session()->flash('success', 'Your account has been created.');
         $user = User::create($attributes);
+        $months = ['Januari', 'Februari', 'Maret', 'April', 'May', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        for ($i = 0; $i < 12; $i++) {  
+            Posyandu::create([
+                'user_id' => $user->id,
+                'month' => $months[$i],
+                'date' => null,
+                'weight' => null,
+                'height' => null,
+                'immunization' => false,
+                'vit_a' => false,
+            ]);
+        }
+
         Auth::login($user);
         return redirect('/dashboard');
     }
