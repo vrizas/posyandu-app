@@ -56,6 +56,12 @@
         @include('components.fixed-plugin')
     @endif
 
-    
 
+@endsection
+
+@section('script')
+<script>
+    const navbarFixedBtn = document.getElementById('navbarFixed');
+    navbarFixedBtn.click();
+</script>
 @endsection

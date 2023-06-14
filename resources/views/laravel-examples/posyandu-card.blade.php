@@ -30,10 +30,10 @@
                                             Tgl
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">
-                                            BB
+                                            BB (kg)
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">
-                                            TB
+                                            TB (cm)
                                         </th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7" rowspan="2">
                                             Umur
@@ -125,6 +125,23 @@
 
         immunizationCheckEl.checked = item.immunization;
         vitACheckEl.checked = item.vit_a;
+    });
+
+    const currentTableData = document.querySelectorAll(`#posyanducard-table tbody tr:nth-child(${new Date().getMonth() + 1}) td`);
+
+    currentTableData.forEach((td) => {
+        td.style.backgroundColor = 'rgba(155, 229, 170, .4)';
+        td.style.color = '#000';
+    });
+
+    const nextCurrentTableRows = document.querySelectorAll(`#posyanducard-table tbody tr:nth-child(n + ${new Date().getMonth() + 2})`);
+    
+    nextCurrentTableRows.forEach((tr) => {
+        const inputs = tr.querySelectorAll('input');
+
+        inputs.forEach((input) => {
+            input.disabled = true;
+        });
     });
 
     const weightHeightChange = (key) => {
