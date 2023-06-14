@@ -571,7 +571,7 @@
   </div> -->
 
 @endsection
-@push('dashboard')
+@section('script')
   <script>
     window.onload = function() {
     //   var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -640,7 +640,6 @@
     //     },
     //   });
 
-        const age = '{{ $age }}';
         const items = JSON.parse('{!! $items !!}');
 
         var ctx2 = document.getElementById("chart-line").getContext("2d");
@@ -758,5 +757,5 @@
         });
     }
   </script>
-@endpush
+@endsection
 

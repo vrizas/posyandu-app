@@ -14,7 +14,6 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $items = $user->posyandus;
-        $age = $this->getAge($user->baby_birthdate);
 
         $currentHeight = $items[date('n') - 1]->height;
         $currentWeight = $items[date('n') - 1]->weight;
@@ -45,6 +44,6 @@ class DashboardController extends Controller
             $weightStatus = null;
         }
 
-        return view('dashboard', ['items' => $items, 'age' => $age, 'weightStatus' => $weightStatus, 'weightStatusColor' => $weightStatusColor]);
+        return view('dashboard', ['items' => $items, 'weightStatus' => $weightStatus, 'weightStatusColor' => $weightStatusColor]);
     }
 }

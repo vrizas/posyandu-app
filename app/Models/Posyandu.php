@@ -16,6 +16,7 @@ class Posyandu extends Model
         'date',
         'weight',
         'height',
+        'age',
         'immunization',
         'vit_a',
     ];

@@ -62,6 +62,17 @@
                                 </thead>
                                 <tbody>
                                     @foreach($items as $index => $item) 
+                                    <?php 
+                                        $age = 0;
+
+                                        if ($item->age) {
+                                            if (explode(' ', $item->age)[1] === 'tahun') {
+                                                $age = (int)explode(' ', $item->age)[0];
+                                            } else {
+                                                $age = (int)explode(' ', $item->age)[0] / 12;
+                                            }
+                                        }
+                                    ?>
                                     <tr>
                                         <td class="ps-4">
                                             <p class="text-xs font-weight-bold mb-0">{{ $index + 1 }}</p>
@@ -71,7 +82,7 @@
                                             <p class="text-xs font-weight-bold mb-0">{{ $item->month }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <input type="date" name="date[]" id="date_{{ $index + 1 }}" class="text-xs font-weight-bold" value="{{ $item->date }}" style="width: 120px;">
+                                            <input type="date" name="date[]" id="date_{{ $index + 1 }}" class="text-xs font-weight-bold" value="{{ $item->date }}" style="width: 120px;" onchange="dateChange(this, '{{ $index + 1 }}')">
                                         </td>
                                         <td class="text-center">
                                             <input type="number" min="1" placeholder="BB" name="weight[]" id="bb_{{ $index + 1 }}" value="{{ $item->weight }}" class="text-xs font-weight-bold" style="width: 50px;" onkeyup="weightHeightChange('{{ $index + 1 }}')">
@@ -80,13 +91,14 @@
                                             <input type="number" min="1" placeholder="TB" name="height[]" id="tb_{{ $index + 1 }}" value="{{ $item->height }}" class="text-xs font-weight-bold" style="width: 50px;" onkeyup="weightHeightChange('{{ $index + 1 }}')">
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0">{{ $age }}</p>
+                                            <p class="text-xs font-weight-bold mb-0">{{ $item->age }}</p>
+                                            <input type="hidden" name="age[]" id="age_{{ $index + 1 }}" value="{{ $item->age }}">
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0" id="bb-u-{{ $index + 1 }}">{{ $item->weight ? round($item->weight / $age, 2) : 0 }}</p>
+                                            <p class="text-xs font-weight-bold mb-0" id="bb-u-{{ $index + 1 }}">{{ ($item->weight && $item->age) ? round($item->weight / $age, 2) : 0 }}</p>
                                         </td>
                                         <td class="text-center">
-                                            <p class="text-xs font-weight-bold mb-0" id="tb-u-{{ $index + 1 }}">{{ $item->height ? round($item->height / $age, 2) : 0 }}</p>
+                                            <p class="text-xs font-weight-bold mb-0" id="tb-u-{{ $index + 1 }}">{{ ($item->height && $item->age) ? round($item->height / $age, 2) : 0 }}</p>
                                         </td>
                                         <td class="text-center">
                                             <p class="text-xs font-weight-bold mb-0" id="bb-tb-{{ $index + 1 }}">{{ ($item->weight && $item->height) ? round($item->weight / $item->height, 2) : 0 }}</p>
@@ -105,7 +117,7 @@
                             </table>
                         </div>
                         <div class="m-3 d-flex justify-content-end">
-                            <button class="btn bg-gradient-primary btn-sm mb-0">Simpan</button>
+                            <button class="btn bg-primary btn-sm mb-0 text-white">Simpan</button>
                         </div>
                     </form>
                 </div>
@@ -116,15 +128,18 @@
 @endsection
 @section('script')
 <script>
-    const age = '{{ $age }}';
     const items = JSON.parse('{!! $items !!}');
+    const birthDate = new Date('{{ $birthDate }}');
 
     items.forEach((item, index) => {
         const immunizationCheckEl = document.querySelector(`#immunization_${index + 1}`).previousElementSibling;
         const vitACheckEl = document.querySelector(`#vit_a_${index + 1}`).previousElementSibling;
+        const dateEl = document.querySelector(`#date_${index + 1}`);
+        const today = new Date().toISOString().split('T')[0];
 
         immunizationCheckEl.checked = item.immunization;
         vitACheckEl.checked = item.vit_a;
+        dateEl.setAttribute('min', today);
     });
 
     const currentTableData = document.querySelectorAll(`#posyanducard-table tbody tr:nth-child(${new Date().getMonth() + 1}) td`);
@@ -144,12 +159,40 @@
         });
     });
 
+    const calculateAgeFrom = (fromDate, toDate) => { 
+        const diff_ms = toDate.getTime() - fromDate.getTime();
+        const age_dt = new Date(diff_ms); 
+        const age = Math.abs(age_dt.getUTCFullYear() - 1970);
+        if (age) {
+            return age + ' tahun';
+        }
+
+        return (toDate.getMonth() - fromDate.getMonth()) + ' bulan';
+    }
+
+    const dateChange = (el, key) => {
+        const date = new Date(el.value);
+        const ageEl = document.querySelector(`#age_${key}`);
+        const ageDisplayEl = ageEl.previousElementSibling;
+
+        const age = calculateAgeFrom(birthDate, date);
+        ageEl.value = age;
+        ageDisplayEl.innerText = age;
+    }
+
     const weightHeightChange = (key) => {
-        const weight = Number(document.querySelector(`#bb_${key}`).value) || 0;
-        const height = Number(document.querySelector(`#tb_${key}`).value) || 0;
+        const weight = Number(document.querySelector(`#bb_${key}`).value || 0);
+        const height = Number(document.querySelector(`#tb_${key}`).value || 0);
+        let age = 0;
         const bbUEl = document.querySelector(`#bb-u-${key}`);
         const tbUEl = document.querySelector(`#tb-u-${key}`);
         const bbTbEl = document.querySelector(`#bb-tb-${key}`);
+
+        if (document.querySelector(`#age_${key}`).value.includes('tahun')) {
+            age = Number(document.querySelector(`#age_${key}`).value.split(' ')[0]);
+        } else {
+            age = Number(document.querySelector(`#age_${key}`).value.split(' ')[0]) / 12;
+        }
 
         const bbU = weight / age;
         const tbU = height / age;

@@ -28,8 +28,6 @@ class RegisterController extends Controller
         $attributes['password'] = bcrypt($attributes['password'] );
 
         
-
-        session()->flash('success', 'Your account has been created.');
         $user = User::create($attributes);
         $months = ['Januari', 'Februari', 'Maret', 'April', 'May', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
         for ($i = 0; $i < 12; $i++) {  
@@ -39,6 +37,7 @@ class RegisterController extends Controller
                 'date' => null,
                 'weight' => null,
                 'height' => null,
+                'age' => null,
                 'immunization' => false,
                 'vit_a' => false,
             ]);

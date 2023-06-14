@@ -69,7 +69,7 @@
                   @enderror
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Daftar</button>
+                  <button type="submit" class="btn bg-primary text-white w-100 my-4 mb-2">Daftar</button>
                 </div>
                 <p class="text-sm mt-3 mb-0">Sudah memiliki akun? <a href="login" class="text-dark font-weight-bolder">Masuk</a></p>
               </form>
@@ -79,6 +79,8 @@
       </div>
     </div>
   </section>
-
+  <script>
+    document.querySelector('[type="date"]').setAttribute('max', new Date().toISOString().split('T')[0]);
+  </script>
 @endsection
 

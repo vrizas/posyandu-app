@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posyandu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PosyanduController extends Controller
 {
@@ -18,9 +19,8 @@ class PosyanduController extends Controller
     {
         $user = auth()->user();
         $items = $user->posyandus;
-        $age = $this->getAge($user->baby_birthdate);
 
-        return view('laravel-examples/posyandu-card', ['items' => $items, 'age' => $age]);
+        return view('laravel-examples/posyandu-card', ['items' => $items, 'birthDate' => $user->baby_birthdate]);
     }
 
     /**
@@ -60,18 +60,20 @@ class PosyanduController extends Controller
      */
     public function update(Request $request)
     {
-        for($i = 0; $i < 12; $i++) {
+        for($i = 0; $i < date('n'); $i++) {
             $posyandu = Posyandu::findOrFail($request->id[$i]);
             $posyandu->update([
                 'date'     => $request->date[$i],
                 'weight'     => $request->weight[$i],
                 'height'     => $request->height[$i],
+                'age'     => $request->age[$i],
                 'immunization'     => $request->immunization[$i],
                 'vit_a'     => $request->vit_a[$i],
             ]);
         }
 
-        return $this->index();
+        Session::flash('success', "Berhasil menyimpan data posyandu");
+        return redirect()->back();
     }
 
     /**

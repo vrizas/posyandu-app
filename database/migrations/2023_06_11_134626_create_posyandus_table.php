@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('date')->nullable();
             $table->integer('weight')->nullable();
             $table->integer('height')->nullable();
+            $table->string('age')->nullable();
             $table->boolean('immunization');
             $table->boolean('vit_a');
             $table->timestamps();

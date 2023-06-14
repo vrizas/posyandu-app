@@ -10,7 +10,7 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <h3 class="font-weight-bolder text-info text-gradient">Hai!</h3>
+                  <h3 class="font-weight-bolder text-primary">Hai!</h3>
                   <p class="mb-0">Masuk untuk memulai posyandu anak Anda.</p>
                 </div>
                 <div class="card-body">
@@ -35,17 +35,17 @@
                       <label class="form-check-label" for="rememberMe">Ingat Saya</label>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Masuk</button>
+                      <button type="submit" class="btn bg-primary w-100 mt-4 mb-0 text-white">Masuk</button>
                     </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <small class="text-muted">Lupa password? Reset password Anda
-                  <a href="/login/forgot-password" class="text-info text-gradient font-weight-bold">disini</a>
+                  <a href="/login/forgot-password" class="text-primary font-weight-bold">disini</a>
                 </small>
                   <p class="mb-4 text-sm mx-auto">
                     Belum memiliki akun?
-                    <a href="register" class="text-info text-gradient font-weight-bold">Daftar</a>
+                    <a href="register" class="text-primary font-weight-bold">Daftar</a>
                   </p>
                 </div>
               </div>
