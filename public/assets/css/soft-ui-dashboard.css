@@ -5747,7 +5747,7 @@ fieldset:disabled .btn {
     background-color: #000;
     border-radius: 0.5rem;
     color: #fff;
-    max-width: 200px;
+    max-width: 500px;
     padding: 0.25rem 0.5rem;
     text-align: center;
 }

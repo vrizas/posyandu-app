@@ -38,9 +38,9 @@
       <div class="card">
         <div class="card-body p-3">
             <div class="d-flex flex-column h-100">
-              <h5 class="font-weight-bolder">Menjaga Pola Makan Anak</h5>
-              <p class="mb-5">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis vel iusto mollitia natus similique quaerat reprehenderit aspernatur, fugit velit quidem.</p>
-              <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="javascript:;">
+              <h5 class="font-weight-bolder" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;" data-bs-toggle="tooltip" data-bs-placement="top" title="Rekomendasi Asupan Gizi & Nutrisi Seimbang untuk Bantu Tumbuh Kembang Anak 1 Tahun ke Atas">Rekomendasi Asupan Gizi & Nutrisi Seimbang untuk Bantu Tumbuh Kembang Anak 1 Tahun ke Atas</h5>
+              <p class="mb-5 text-justify">Dalam pemberian nutrisi, Ibu bisa mengikuti Pedoman Gizi Seimbang sebagai panduan dalam memberikan makanan sehari-hari dan membiasakan perilaku makan yang sehat pada si...</p>
+              <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="https://www.generasimaju.co.id/artikel/1-tahun/nutrisi-makanan/asupan-gizi-nutrisi-seimbang?utm_source=google&utm_medium=cpc&utm_campaign=sgm-sem_generic_dsa-gum-aon_cosideration_traffic_May-2023&utm_term=dsa&utm_content=GUM1&gclid=CjwKCAjwyqWkBhBMEiwAp2yUFnLXgkXi-N8bIB0b8RC9Xg87537ET44XHoS88Zjdain-4nAdoKRqNBoCQP0QAvD_BwE&gclsrc=aw.ds"  target="_blank" rel="noopener noreferrer">
                 Baca Selengkapnya
                 <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
               </a>
