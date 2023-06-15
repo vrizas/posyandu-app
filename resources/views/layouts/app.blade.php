@@ -32,7 +32,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Soft UI Dashboard by Creative Tim
+    Posyandu App
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -53,15 +53,7 @@
   @guest
     @yield('guest')
   @endguest
-
-  @if(session()->has('success'))
-    <div x-data="{ show: true}"
-        x-init="setTimeout(() => show = false, 4000)"
-        x-show="show"
-        class="position-fixed bg-success rounded right-3 text-sm py-2 px-4">
-      <p class="m-0">{{ session('success')}}</p>
-    </div>
-  @endif
+  
     <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
@@ -71,6 +63,21 @@
   <script src="../assets/js/plugins/chartjs.min.js"></script>
   @stack('rtl')
   @stack('dashboard')
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  @if(session()->has('success'))
+  <script>
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: '{{ session("success")}}',
+      iconColor: '#45ac8b',
+      confirmButtonColor: '#45ac8b',
+      footer: '<a href="/dashboard" class="font-weight-bold">Cek grafik data posyandu</a>'
+    })
+  </script>
+  @endif
+
   <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -85,6 +92,7 @@
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.3"></script>
+  @yield('script')
 </body>
 
 </html>

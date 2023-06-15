@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Posyandu;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -17,7 +18,9 @@ class RegisterController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'name' => ['required', 'max:50'],
+            'baby_name' => ['required', 'max:50'],
+            'baby_birthdate' => ['required', 'date'],
+            'mother_name' => ['required', 'max:50'],
             'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')],
             'password' => ['required', 'min:5', 'max:20'],
             'agreement' => ['accepted']
@@ -25,10 +28,22 @@ class RegisterController extends Controller
         $attributes['password'] = bcrypt($attributes['password'] );
 
         
-
-        session()->flash('success', 'Your account has been created.');
         $user = User::create($attributes);
-        Auth::login($user); 
+        $months = ['Januari', 'Februari', 'Maret', 'April', 'May', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        for ($i = 0; $i < 12; $i++) {  
+            Posyandu::create([
+                'user_id' => $user->id,
+                'month' => $months[$i],
+                'date' => null,
+                'weight' => null,
+                'height' => null,
+                'age' => null,
+                'immunization' => false,
+                'vit_a' => false,
+            ]);
+        }
+
+        Auth::login($user);
         return redirect('/dashboard');
     }
 }
